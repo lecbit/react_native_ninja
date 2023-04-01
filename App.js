@@ -1,65 +1,38 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import Header from './components/header';
 
 export default function App() {
-  const [people, setPeople] = useState([
-    { name: 'Abc', id: 1 },
-    { name: 'Bcd', id: 2 },
-    { name: 'Cdf', id: 3 },
-    { name: 'Dfe', id: 4 },
-    { name: 'Abc', id: 5 },
-    { name: 'Bcd', id: 6 },
-    { name: 'Cdf', id: 7 },
-    { name: 'Dfe', id: 8 },
-    { name: 'Cdf', id: 9 },
-    { name: 'Dfe', id: 10 },
+  const [todos, setTodos] = useState([
+    { text: 'Abc aaaaaaaa', key: 1 },
+    { text: 'Bcd bbbbbbbbb', key: 2 },
+    { text: 'Cdf cccccccccc', key: 3 },
   ]);
-
-  const pressHandler = (id) => {
-    setPeople((prevPeople) => {
-      return prevPeople.filter(person => person.id != id)
-    });
-  }
-
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        data={people}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
-            <Text style={styles.item}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
-      {/* <ScrollView>
-        {
-          people.map((item) => {
-            return (
-              <View key={item.key}>
-                <Text style={styles.item}>{item.name}</Text>
-              </View>
-            )
-          })
-        }
-      </ScrollView> */}
-    </View>
+      <Header />
+      <View style={styles.content}>
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => (
+              <Text>{item.text}</Text>
+            )}
+          />
+        </View>
+      </View >
+    </View >
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20
   },
-  item: {
-    marginTop: 25,
-    padding: 30,
-    fontSize: 24,
-    backgroundColor: 'pink',
-    marginHorizontal: 10,
-    marginTop: 24
+  content: {
+    padding: 40,
+  },
+  list: {
+    marginTop: 20
   }
 });
